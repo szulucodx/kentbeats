@@ -1,0 +1,186 @@
+/* =============================================
+   base.css — Variables, Reset, Background, Animations
+   ============================================= */
+
+:root {
+  --navy:    #040d1a;
+  --deep:    #071528;
+  --mid:     #0a2244;
+  --vivid:   #0d6efd;
+  --electric:#1e90ff;
+  --ice:     #7ec8ff;
+  --glow:    #00b4ff;
+  --white:   #f0f8ff;
+  --muted:   #8bb8d4;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+.cursor {
+  width: 14px; height: 14px;
+  background: var(--glow);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform .1s, width .2s, height .2s, opacity .2s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  width: 40px; height: 40px;
+  border: 1.5px solid var(--electric);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform .25s ease, width .3s, height .3s, opacity .3s;
+  opacity: .5;
+}
+
+/* ─── BACKGROUND ─── */
+.bg-mesh {
+  position: fixed; inset: 0; z-index: 0; overflow: hidden;
+}
+.bg-mesh::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(13,110,253,.22) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(0,180,255,.15) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 55% 50%, rgba(30,144,255,.08) 0%, transparent 70%);
+  animation: meshPulse 9s ease-in-out infinite alternate;
+}
+@keyframes meshPulse {
+  from { opacity: .8; }
+  to   { opacity: 1; }
+}
+
+.grid-bg {
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(13,110,253,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13,110,253,.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 100%);
+}
+
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 12s ease-in-out infinite alternate;
+}
+.orb-1 { width: 420px; height: 420px; background: rgba(13,110,253,.18); top: -100px; left: -100px; animation-delay: 0s; }
+.orb-2 { width: 300px; height: 300px; background: rgba(0,180,255,.12); bottom: 5%; right: -80px; animation-delay: -4s; }
+.orb-3 { width: 200px; height: 200px; background: rgba(30,144,255,.1); top: 40%; left: 40%; animation-delay: -8s; }
+@keyframes orbFloat {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(30px, 40px) scale(1.1); }
+}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  position: relative; z-index: 1;
+  overflow: hidden;
+  background: rgba(13,110,253,.06);
+  border-top: 1px solid rgba(13,110,253,.12);
+  border-bottom: 1px solid rgba(13,110,253,.12);
+  padding: 18px 0;
+}
+.marquee-inner {
+  display: flex; gap: 4rem; white-space: nowrap;
+  animation: marqueeScroll 30s linear infinite;
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-item {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem; letter-spacing: .08em;
+  color: rgba(126,200,255,.35);
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.marquee-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--vivid); }
+
+/* ─── STATS ─── */
+.stats {
+  position: relative; z-index: 1;
+  display: flex; justify-content: center; gap: 0;
+  border-top: 1px solid rgba(13,110,253,.15);
+  border-bottom: 1px solid rgba(13,110,253,.15);
+  background: rgba(7,21,40,.7);
+  backdrop-filter: blur(12px);
+}
+.stat {
+  flex: 1; max-width: 220px;
+  padding: 36px 20px; text-align: center;
+  border-right: 1px solid rgba(13,110,253,.12);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem; letter-spacing: .04em;
+  color: var(--electric); line-height: 1;
+}
+.stat-label { font-size: .78rem; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-top: 6px; }
+
+/* ─── SHARED SECTION STYLES ─── */
+section { position: relative; z-index: 1; padding: 100px 6vw; }
+.section-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--glow); margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1; letter-spacing: .03em;
+  color: var(--white); margin-bottom: 1.2rem;
+}
+.section-title span {
+  background: linear-gradient(90deg, var(--electric), var(--glow));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.section-lead { color: var(--muted); max-width: 500px; line-height: 1.7; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .stats { flex-wrap: wrap; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto; }
+  .cursor,
+  .cursor-ring { display: none; }
+}

@@ -1,0 +1,75 @@
+/* =============================================
+   player.css — Music Player Bar
+   ============================================= */
+
+.player-bar {
+  position: relative; z-index: 10;
+  background: rgba(7,21,40,.95);
+  border: 1px solid rgba(13,110,253,.25);
+  border-radius: 10px; margin: 0 4vw;
+  padding: 22px 30px;
+  display: flex; align-items: center; gap: 24px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 60px rgba(13,110,253,.15);
+}
+
+.player-thumb {
+  width: 52px; height: 52px; border-radius: 6px;
+  background: linear-gradient(135deg, var(--mid), var(--electric));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; flex-shrink: 0;
+}
+.player-meta { flex: 1; min-width: 0; }
+.player-track { font-weight: 700; font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-artist { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+
+.player-controls { display: flex; align-items: center; gap: 16px; }
+.ctrl-btn {
+  background: none; border: none; color: var(--muted);
+  font-size: 1.1rem; cursor: none; transition: color .2s, transform .15s;
+}
+.ctrl-btn:hover { color: var(--white); transform: scale(1.15); }
+.ctrl-play {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--vivid); border: none; color: #fff; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none; box-shadow: 0 0 20px rgba(13,110,253,.45);
+  transition: background .2s, box-shadow .2s;
+}
+.ctrl-play:hover {
+  background: var(--electric);
+  box-shadow: 0 0 30px rgba(30,144,255,.6);
+}
+
+.player-progress { flex: 2; display: flex; flex-direction: column; gap: 6px; }
+.progress-track {
+  height: 4px; background: rgba(13,110,253,.2);
+  border-radius: 2px; overflow: hidden; cursor: none;
+}
+.progress-fill {
+  height: 100%; width: 38%;
+  background: linear-gradient(90deg, var(--vivid), var(--glow));
+  border-radius: 2px; transition: width .1s;
+}
+.progress-times {
+  display: flex; justify-content: space-between;
+  font-family: 'Space Mono', monospace; font-size: .68rem; color: var(--muted);
+}
+
+.player-vol { display: flex; align-items: center; gap: 8px; }
+.vol-icon { font-size: .95rem; color: var(--muted); }
+.vol-slider {
+  -webkit-appearance: none; appearance: none;
+  width: 80px; height: 3px;
+  background: rgba(13,110,253,.3); border-radius: 2px;
+  cursor: none; outline: none;
+}
+.vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 12px; height: 12px;
+  border-radius: 50%; background: var(--electric); cursor: none;
+}
+
+@media (max-width: 768px) {
+  .player-bar { flex-direction: column; gap: 14px; }
+  .player-progress { width: 100%; }
+}

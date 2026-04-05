@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Kentbeats offers free trap, afrobeats, drill, and R&B instrumentals with instant downloads for creators." />
+  <meta property="og:title" content="Kentbeats - Free Beats" />
+  <meta property="og:description" content="Studio-quality beats for every artist, completely free." />
+  <meta property="og:type" content="website" />
+  <title>Kentbeats – Free Beats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/nav.css"/>
+  <link rel="stylesheet" href="css/hero.css"/>
+  <link rel="stylesheet" href="css/beats.css"/>
+  <link rel="stylesheet" href="css/player.css"/>
+  <link rel="stylesheet" href="css/search.css"/>
+  <link rel="stylesheet" href="css/cart.css"/>
+  <link rel="stylesheet" href="css/plans.css"/>
+  <link rel="stylesheet" href="css/sections.css"/>
+  <link rel="stylesheet" href="css/footer.css"/>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Background Effects -->
+  <div class="bg-mesh"></div>
+  <div class="grid-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Kent<span>beats</span></div>
+    <ul class="nav-links">
+      <li><a href="#beats">Beats</a></li>
+      <li><a href="#genres">Genres</a></li>
+      <li><a href="#plans">Free Access</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <button class="nav-btn" id="navGetStarted">Get Started</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">🎵 Free Beat Downloads</div>
+    <h1>
+      <span class="line1">KENT</span>
+      <span class="line2">BEATS</span>
+    </h1>
+    <p class="hero-sub">Studio-quality beats for every artist, completely free. Trap, Afrobeats, Drill, R&B — crafted to elevate your sound.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="document.getElementById('beats').scrollIntoView({behavior:'smooth'})">Browse Beats ↓</button>
+      <button class="btn-ghost" id="previewPackBtn">▶ Preview Pack</button>
+    </div>
+    <div class="waveform-wrap" id="waveform"></div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num">1.2K+</div><div class="stat-label">Beats Available</div></div>
+    <div class="stat"><div class="stat-num">50K+</div><div class="stat-label">Downloads</div></div>
+    <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Artist Satisfaction</div></div>
+    <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Genres Covered</div></div>
+  </div>
+
+  <!-- SEARCH BAR -->
+  <div class="search-wrap reveal">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search beats by name, genre, BPM...">
+      <div class="search-filters">
+        <button class="search-filter-btn active" data-filter="all">All</button>
+        <button class="search-filter-btn" data-filter="Trap">Trap</button>
+        <button class="search-filter-btn" data-filter="Afrobeats">Afro</button>
+        <button class="search-filter-btn" data-filter="Drill">Drill</button>
+        <button class="search-filter-btn" data-filter="R&B">R&B</button>
+      </div>
+      <button class="search-go">Search</button>
+    </div>
+    <div class="search-results-count" id="resultsCount"><span id="countNum">12</span> beats found</div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-inner" id="marquee"></div>
+  </div>
+
+  <!-- BEATS SECTION -->
+  <section id="beats">
+    <p class="section-tag reveal">// Featured Drops</p>
+    <h2 class="section-title reveal">HOT <span>BEATS</span><br>THIS WEEK</h2>
+    <p class="section-lead reveal">Hand-picked fire, fresh out the studio. Tap to preview, download instantly.</p>
+    <div class="beats-grid" id="beatsGrid"></div>
+  </section>
+
+  <!-- PLAYER -->
+  <div class="player-bar reveal">
+    <div class="player-thumb">🎵</div>
+    <div class="player-meta">
+      <div class="player-track">Midnight Frequencies</div>
+      <div class="player-artist">Kentbeats · Trap</div>
+    </div>
+    <div class="player-controls">
+      <button class="ctrl-btn">⏮</button>
+      <button class="ctrl-play" id="playBtn">▶</button>
+      <button class="ctrl-btn">⏭</button>
+    </div>
+    <div class="player-progress">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-times"><span id="currentTime">1:24</span><span>3:47</span></div>
+    </div>
+    <div class="player-vol">
+      <span class="vol-icon">🔊</span>
+      <input type="range" class="vol-slider" min="0" max="100" value="75">
+    </div>
+  </div>
+
+  <!-- GENRES -->
+  <section id="genres">
+    <p class="section-tag reveal">// Filter by Sound</p>
+    <h2 class="section-title reveal">EXPLORE <span>GENRES</span></h2>
+    <div class="genres-flex reveal">
+      <div class="genre-chip active">All Beats</div>
+      <div class="genre-chip">🔥 Trap</div>
+      <div class="genre-chip">🌍 Afrobeats</div>
+      <div class="genre-chip">💀 Drill</div>
+      <div class="genre-chip">💙 R&amp;B</div>
+      <div class="genre-chip">🎸 Boom Bap</div>
+      <div class="genre-chip">🎹 Lo-Fi</div>
+      <div class="genre-chip">⚡ Amapiano</div>
+      <div class="genre-chip">🎤 Pop</div>
+      <div class="genre-chip">🌙 Chill</div>
+      <div class="genre-chip">🏙️ UK Rap</div>
+    </div>
+  </section>
+
+  <!-- FREE ACCESS -->
+  <section id="plans">
+    <p class="section-tag reveal">// Access</p>
+    <h2 class="section-title reveal">ALWAYS <span>FREE</span></h2>
+    <p class="section-lead reveal">No premium plans, no paywall, no checkout fees. Download and create.</p>
+    <div class="plans-grid reveal">
+      <div class="plan-card">
+        <div class="plan-label">Open</div>
+        <div class="plan-name">Free Download</div>
+        <div class="plan-price"><sup>$</sup>0</div>
+        <div class="plan-cycle">all beats · unlimited downloads</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="ck">✓</span> MP3 downloads included</li>
+          <li><span class="ck">✓</span> WAV files included</li>
+          <li><span class="ck">✓</span> Stems included</li>
+          <li><span class="ck">✓</span> Commercial use allowed</li>
+          <li><span class="ck">✓</span> Unlimited streams</li>
+          <li><span class="ck">✓</span> No payment required</li>
+        </ul>
+        <button class="plan-cta outline">Start Downloading</button>
+      </div>
+      <div class="plan-card">
+        <div class="plan-label">Community</div>
+        <div class="plan-name">Free Forever</div>
+        <div class="plan-price"><sup>$</sup>0</div>
+        <div class="plan-cycle">same access for everyone</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="ck">✓</span> No locked features</li>
+          <li><span class="ck">✓</span> No subscriptions</li>
+          <li><span class="ck">✓</span> No premium tiers</li>
+          <li><span class="ck">✓</span> Instant free downloads</li>
+          <li><span class="ck">✓</span> Equal creator access</li>
+          <li><span class="ck">✓</span> Built for artists first</li>
+        </ul>
+        <button class="plan-cta outline">Download Free</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="about">
+    <p class="section-tag reveal">// Artist Reviews</p>
+    <h2 class="section-title reveal">WHAT ARTISTS <span>SAY</span></h2>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Kentbeats has the cleanest Trap selection I've found anywhere. The quality is insane — sounds like major label production."</p>
+        <div class="testi-author">
+          <div class="author-avatar av1">JK</div>
+          <div><div class="author-name">J-Kay</div><div class="author-role">Rapper · Lusaka</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Downloaded 3 beats last week. Already recorded two tracks. The Afrobeats pack is fire. Zero regrets."</p>
+        <div class="testi-author">
+          <div class="author-avatar av2">TM</div>
+          <div><div class="author-name">Tolu M.</div><div class="author-role">Singer-Songwriter · Nairobi</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Best beat site I've used. Easy access, instant download, and the WAV files are pristine. Kentbeats is my go-to."</p>
+        <div class="testi-author">
+          <div class="author-avatar av3">XR</div>
+          <div><div class="author-name">Xander R.</div><div class="author-role">Music Producer · Harare</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">Kent<span>beats</span></div>
+        <p>Free beats for serious artists. Built in Africa, heard worldwide. Download your next hit today.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Beats</h4>
+        <ul>
+          <li><a href="#">New Releases</a></li>
+          <li><a href="#">Top Downloads</a></li>
+          <li><a href="#">Beat Packs</a></li>
+          <li><a href="#">Free Beats</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Genres</h4>
+        <ul>
+          <li><a href="#">Trap</a></li>
+          <li><a href="#">Afrobeats</a></li>
+          <li><a href="#">Drill</a></li>
+          <li><a href="#">R&amp;B / Soul</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Kent</a></li>
+          <li><a href="#">Licensing FAQ</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="footerYear">2026</span> Kentbeats. All rights reserved.</span>
+      <div class="social-links">
+        <a href="#" class="social-link">𝕏</a>
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">▶</a>
+        <a href="#" class="social-link">📸</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART FAB -->
+  <button class="cart-fab" id="cartFab">
+    🛒
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+
+  <!-- CART OVERLAY -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <!-- CART PANEL -->
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <div class="cart-title">Your Cart</div>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🎵</div>
+        <div>No beats added yet</div>
+        <div style="font-size:.8rem;opacity:.6">Browse and add beats to get started</div>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <div class="cart-total-label">Total</div>
+        <div class="cart-total-price" id="cartTotal">FREE</div>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn" disabled>Download Selected Beats →</button>
+      <div class="cart-note">⬇ Instant free downloads · No payment required</div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="checkout-modal" id="checkoutModal">
+    <div class="checkout-box">
+      <h2>Get Your Free Downloads</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input class="form-input" id="checkoutFirstName" type="text" placeholder="John">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-input" id="checkoutLastName" type="text" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" id="checkoutEmail" type="email" placeholder="you@example.com">
+      </div>
+      <div class="checkout-summary" id="checkoutSummary"></div>
+      <div class="checkout-actions">
+        <button class="checkout-cancel" id="checkoutCancel">Cancel</button>
+        <button class="checkout-confirm" id="checkoutConfirm">Download Now ⬇</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">✅ <span id="toastMsg">Beat added to cart!</span></div>
+
+  <!-- SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/waveform.js"></script>
+  <script src="js/marquee.js"></script>
+  <script src="js/beats.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/genres.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+/* =============================================
+   sections.css — Testimonials
+   ============================================= */
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px; margin-top: 3rem;
+}
+.testi-card {
+  background: rgba(10,34,68,.4);
+  border: 1px solid rgba(13,110,253,.15);
+  border-radius: 8px; padding: 28px;
+  transition: border-color .25s;
+}
+.testi-card:hover { border-color: rgba(30,144,255,.35); }
+.stars { color: var(--electric); font-size: .9rem; margin-bottom: 14px; }
+.testi-text { font-size: .9rem; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.author-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 700; color: var(--navy); flex-shrink: 0;
+}
+.av1 { background: linear-gradient(135deg, var(--electric), var(--glow)); }
+.av2 { background: linear-gradient(135deg, #1a6fcf, var(--ice)); }
+.av3 { background: linear-gradient(135deg, var(--vivid), var(--electric)); }
+.author-name { font-weight: 700; font-size: .9rem; }
+.author-role { font-size: .75rem; color: var(--muted); }

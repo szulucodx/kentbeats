@@ -1,0 +1,50 @@
+/* =============================================
+   nav.css — Navigation Bar
+   ============================================= */
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 6vw;
+  backdrop-filter: blur(18px) saturate(140%);
+  background: rgba(4,13,26,.7);
+  border-bottom: 1px solid rgba(13,110,253,.15);
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem; letter-spacing: .08em;
+  background: linear-gradient(120deg, var(--electric), var(--glow));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.logo span { color: var(--ice); -webkit-text-fill-color: var(--ice); }
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: .88rem; font-weight: 500; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+  text-decoration: none; position: relative; transition: color .2s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--glow); transform: scaleX(0);
+  transition: transform .25s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+.nav-btn {
+  background: var(--vivid); color: #fff; border: none;
+  padding: 10px 24px; border-radius: 4px;
+  font-size: .85rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; cursor: none;
+  transition: background .2s, box-shadow .2s;
+}
+.nav-btn:hover {
+  background: var(--electric);
+  box-shadow: 0 0 20px rgba(30,144,255,.45);
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
