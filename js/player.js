@@ -28,6 +28,7 @@ function updateProgressUI() {
 }
 
 function loadBeat(index) {
+  if (!BEATS_DATA.length) return;
   const safeIndex = (index + BEATS_DATA.length) % BEATS_DATA.length;
   const beat = BEATS_DATA[safeIndex];
   currentBeatIndex = safeIndex;
@@ -67,6 +68,12 @@ document.addEventListener('beat:selected', event => {
     loadBeat(nextIndex);
     setPlaying(true);
   }
+});
+
+document.addEventListener('beats:data-updated', () => {
+  currentBeatIndex = 0;
+  loadBeat(0);
+  setPlaying(false);
 });
 
 setInterval(() => {

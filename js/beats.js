@@ -120,6 +120,14 @@ function renderBeats(list) {
 // Initial render
 renderBeats(BEATS_DATA);
 
+document.addEventListener('beats:data-updated', () => {
+  if (typeof applySearch === 'function') {
+    applySearch();
+    return;
+  }
+  renderBeats(BEATS_DATA);
+});
+
 document.getElementById('navGetStarted')?.addEventListener('click', () => {
   document.getElementById('beats')?.scrollIntoView({ behavior: 'smooth' });
 });

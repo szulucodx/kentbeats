@@ -10,6 +10,36 @@ A static music showcase website for free beat discovery and instant downloads.
 - Cart with localStorage persistence
 - Checkout validation (name + email)
 - Real file downloads (license text per selected beat)
+- API-based beat catalog loading with fallback data
+
+## Connect a real API
+
+The app now fetches beats from `window.KENTBEATS_API_URL` in `js/api.js`.
+
+1. Open `js/api.js`
+2. Replace the URL with your backend endpoint, for example:
+
+```js
+window.KENTBEATS_API_URL = 'https://api.yourdomain.com/beats';
+```
+
+Expected JSON response is an array of beat objects:
+
+```json
+[
+	{
+		"name": "Midnight Frequencies",
+		"bpm": "140 BPM",
+		"genre": "Trap",
+		"price": "FREE",
+		"emoji": "🌙",
+		"g": "g1",
+		"badge": "NEW"
+	}
+]
+```
+
+If the API is unavailable, the app automatically falls back to local default data.
 
 ## Publish on GitHub Pages (Windows)
 

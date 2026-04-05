@@ -27,6 +27,8 @@ function applySearch() {
   renderBeats(filtered);
 }
 
+window.applySearch = applySearch;
+
 function setGenreFilter(filter) {
   setActiveFilter(filter);
   applySearch();
@@ -47,3 +49,5 @@ document.querySelectorAll('.search-filter-btn').forEach(btn => {
     applySearch();
   });
 });
+
+document.addEventListener('beats:data-updated', applySearch);

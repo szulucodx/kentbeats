@@ -1,8 +1,8 @@
 // =============================================
-// data.js — All beats data
+// data.js — Beats data + API loader
 // =============================================
 
-const BEATS_DATA = [
+let BEATS_DATA = [
   { name: 'Midnight Frequencies', bpm: '140 BPM', genre: 'Trap',      price: 'FREE', emoji: '🌙', g: 'g1', badge: 'NEW' },
   { name: 'Lagos Nights',          bpm: '112 BPM', genre: 'Afrobeats', price: 'FREE', emoji: '🌍', g: 'g2' },
   { name: 'Cold Streets',          bpm: '135 BPM', genre: 'Drill',     price: 'FREE', emoji: '❄️', g: 'g3', badge: 'HOT' },
@@ -16,3 +16,48 @@ const BEATS_DATA = [
   { name: 'Neon Rush',             bpm: '150 BPM', genre: 'Trap',      price: 'FREE', emoji: '🌀', g: 'g5' },
   { name: 'Sunset Drive',          bpm: '96 BPM',  genre: 'Lo-Fi',     price: 'FREE', emoji: '🌅', g: 'g6' },
 ];
+
+function normalizeBeat(beat) {
+  return {
+    name: beat.name || 'Untitled Beat',
+    bpm: beat.bpm || '120 BPM',
+    genre: beat.genre || 'Trap',
+    price: beat.price || 'FREE',
+    emoji: beat.emoji || '🎵',
+    g: beat.g || 'g1',
+    badge: beat.badge || '',
+  };
+}
+
+function isValidBeatArray(payload) {
+  return Array.isArray(payload) && payload.length > 0;
+}
+
+async function loadBeatsFromApi() {
+  const apiUrl = window.KENTBEATS_API_URL || 'api/beats.json';
+
+  try {
+    const response = await fetch(apiUrl, { cache: 'no-store' });
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status}`);
+    }
+
+    const payload = await response.json();
+    if (!isValidBeatArray(payload)) {
+      throw new Error('API payload is not a non-empty array');
+    }
+
+    BEATS_DATA = payload.map(normalizeBeat);
+    document.dispatchEvent(new CustomEvent('beats:data-updated', {
+      detail: { source: apiUrl, count: BEATS_DATA.length }
+    }));
+  } catch (error) {
+    console.warn('Using fallback beats data:', error.message);
+    document.dispatchEvent(new CustomEvent('beats:data-fallback', {
+      detail: { source: apiUrl, count: BEATS_DATA.length }
+    }));
+  }
+}
+
+window.loadBeatsFromApi = loadBeatsFromApi;
+loadBeatsFromApi();
