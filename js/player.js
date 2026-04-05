@@ -52,13 +52,20 @@ async function loadBeat(index, autoplay = false) {
   const { beat, safeIndex } = item;
   currentBeatIndex = safeIndex;
   playerTrack.textContent = beat.name;
-  playerArtist.textContent = `Kentbeats · ${beat.genre}`;
+  const artistLabel = beat.artist || 'Kentbeats';
+  playerArtist.textContent = `${artistLabel} · ${beat.genre}`;
   playerThumb.textContent = beat.emoji;
   currentTime.textContent = '0:00';
   durationTime.textContent = '0:00';
   progressFill.style.width = '0%';
 
   if (!beat.streamUrl) {
+    if (autoplay && beat.externalUrl) {
+      window.open(beat.externalUrl, '_blank', 'noopener,noreferrer');
+      if (typeof showToast === 'function') {
+        showToast('Opening YouTube in a new tab');
+      }
+    }
     audio.removeAttribute('src');
     audio.load();
     setPlayingUI(false);

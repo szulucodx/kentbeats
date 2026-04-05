@@ -28,6 +28,9 @@ function normalizeBeat(beat) {
     badge: beat.badge || '',
     streamUrl: beat.streamUrl || '',
     downloadUrl: beat.downloadUrl || beat.streamUrl || '',
+    externalUrl: beat.externalUrl || '',
+    cover: beat.cover || '',
+    artist: beat.artist || '',
   };
 }
 
@@ -79,6 +82,30 @@ function mapItunesResult(track, index) {
   });
 }
 
+function mapYouTubeWorkerResult(item, index) {
+  const genre = normalizeGenre(item.title || item.description || 'Trap');
+  const tempo = 86 + ((index * 5) % 72);
+  const cover = item.thumbnails?.high?.url
+    || item.thumbnails?.medium?.url
+    || item.thumbnails?.default?.url
+    || '';
+
+  return normalizeBeat({
+    name: item.title || 'Untitled Beat',
+    bpm: `${tempo} BPM`,
+    genre,
+    price: 'FREE',
+    emoji: genreEmoji(genre),
+    g: CARD_GRADIENTS[index % CARD_GRADIENTS.length],
+    badge: 'YT',
+    streamUrl: '',
+    downloadUrl: '',
+    externalUrl: item.watchUrl || '',
+    cover,
+    artist: item.channelTitle || '',
+  });
+}
+
 async function fetchCustomSource(url) {
   const response = await fetch(url, { cache: 'no-store' });
   if (!response.ok) {
@@ -115,6 +142,30 @@ async function fetchItunesSource(config) {
   return usableTracks.map(mapItunesResult);
 }
 
+async function fetchYouTubeWorkerSource(config) {
+  const baseUrl = config.url || '/api/youtube/search';
+  const query = encodeURIComponent(config.q || 'afrobeats trap drill');
+  const region = encodeURIComponent((config.region || 'US').toUpperCase());
+  const maxResults = Math.min(Number(config.maxResults) || 20, 50);
+  const url = `${baseUrl}?q=${query}&region=${region}&maxResults=${maxResults}`;
+
+  const response = await fetch(url, { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error(`YouTube worker API failed with ${response.status}`);
+  }
+
+  const payload = await response.json();
+  const items = Array.isArray(payload?.data)
+    ? payload.data
+    : (Array.isArray(payload) ? payload : []);
+
+  if (!items.length) {
+    throw new Error('YouTube worker API returned no results');
+  }
+
+  return items.map(mapYouTubeWorkerResult);
+}
+
 async function fetchFromSource(source) {
   if (!source || !source.type) {
     throw new Error('Invalid API source configuration');
@@ -126,6 +177,10 @@ async function fetchFromSource(source) {
 
   if (source.type === 'itunes') {
     return fetchItunesSource(source);
+  }
+
+  if (source.type === 'youtube-worker') {
+    return fetchYouTubeWorkerSource(source);
   }
 
   throw new Error(`Unsupported source type: ${source.type}`);

@@ -13,6 +13,13 @@ window.KENTBEATS_API_CONFIG = {
 	// Backup sources if primary fails
 	backups: [
 		{
+			type: 'youtube-worker',
+			url: '/api/youtube/search',
+			q: 'afrobeats trap drill amapiano',
+			region: 'US',
+			maxResults: 20,
+		},
+		{
 			type: 'itunes',
 			term: 'afrobeats trap drill',
 			country: 'US',

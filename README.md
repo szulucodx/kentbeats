@@ -41,7 +41,17 @@ window.KENTBEATS_API_CONFIG = {
 Supported source types:
 
 - `custom` (your own endpoint returning beat array)
+- `youtube-worker` (Cloudflare Worker endpoint backed by YouTube Data API)
 - `itunes` (public iTunes search API)
+
+### YouTube Worker setup
+
+In your Cloudflare Worker, set environment variable `YOUTUBE_API_KEY`.
+
+Available endpoints:
+
+- `GET /api/youtube/search?q=query&region=US&maxResults=20`
+- `GET /api/youtube/video?id=VIDEO_ID`
 
 Expected JSON response is an array of beat objects:
 

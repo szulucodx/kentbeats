@@ -39,6 +39,14 @@ function previewBeat(beatName) {
   const beat = BEATS_DATA.find(item => item.name === beatName);
   if (!beat) return;
 
+  if (!beat.streamUrl && beat.externalUrl) {
+    window.open(beat.externalUrl, '_blank', 'noopener,noreferrer');
+    if (typeof showToast === 'function') {
+      showToast('Opened YouTube track');
+    }
+    return;
+  }
+
   document.dispatchEvent(new CustomEvent('beat:selected', { detail: beat }));
 }
 
@@ -58,6 +66,14 @@ function downloadBeat(beatName, options = {}) {
 
     if (!options.silent && typeof showToast === 'function') {
       showToast(`${beat.name} download started`);
+    }
+    return;
+  }
+
+  if (beat.externalUrl) {
+    window.open(beat.externalUrl, '_blank', 'noopener,noreferrer');
+    if (!options.silent && typeof showToast === 'function') {
+      showToast(`${beat.name} opened on YouTube`);
     }
     return;
   }
