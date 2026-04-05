@@ -46,6 +46,22 @@ function downloadBeat(beatName, options = {}) {
   const beat = BEATS_DATA.find(item => item.name === beatName);
   if (!beat) return;
 
+  if (beat.downloadUrl) {
+    const link = document.createElement('a');
+    link.href = beat.downloadUrl;
+    link.download = `${getBeatFileName(beat)}.mp3`;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    if (!options.silent && typeof showToast === 'function') {
+      showToast(`${beat.name} download started`);
+    }
+    return;
+  }
+
   const filename = `${getBeatFileName(beat)}-license.txt`;
   triggerDownload(filename, buildLicenseText(beat));
 
