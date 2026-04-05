@@ -102,3 +102,19 @@ Your website will be live at:
 ## Local preview
 
 Open `index.html` directly, or use any local static server.
+
+## Run in Chrome (recommended)
+
+Use your deployed site URL in Chrome:
+
+`https://szulucodx.github.io/kentbeats/`
+
+Optional: enable YouTube worker from Chrome by setting this before `js/api.js` loads:
+
+```html
+<script>
+	window.KENTBEATS_WORKER_BASE_URL = 'https://your-worker-subdomain.workers.dev';
+</script>
+```
+
+If `KENTBEATS_WORKER_BASE_URL` is not set, the app skips YouTube worker calls and uses iTunes/local fallback.
