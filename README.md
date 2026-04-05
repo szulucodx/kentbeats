@@ -117,4 +117,6 @@ Optional: enable YouTube worker from Chrome by setting this before `js/api.js` l
 </script>
 ```
 
+This is already added in `index.html` as an empty value. Just replace that one line with your real worker URL.
+
 If `KENTBEATS_WORKER_BASE_URL` is not set, the app skips YouTube worker calls and uses iTunes/local fallback.
