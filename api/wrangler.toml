@@ -1,0 +1,10 @@
+name = "kentbeats-api"
+main = "src/index.js"
+compatibility_date = "2026-04-05"
+
+[vars]
+# Non-secret vars go here.
+
+# Secrets:
+# Set YOUTUBE_API_KEY with:
+# wrangler secret put YOUTUBE_API_KEY

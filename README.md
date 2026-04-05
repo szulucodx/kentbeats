@@ -53,6 +53,23 @@ Available endpoints:
 - `GET /api/youtube/search?q=query&region=US&maxResults=20`
 - `GET /api/youtube/video?id=VIDEO_ID`
 
+### Deploy the Worker
+
+From `api/` run:
+
+```powershell
+npm install
+npx wrangler login
+npx wrangler secret put YOUTUBE_API_KEY
+npm run deploy
+```
+
+After deploy, Cloudflare returns a URL like:
+
+`https://kentbeats-api.<your-subdomain>.workers.dev`
+
+Set that URL in `index.html` at `window.KENTBEATS_WORKER_BASE_URL`.
+
 Expected JSON response is an array of beat objects:
 
 ```json
