@@ -2,7 +2,21 @@
 // api.js — API endpoint configuration
 // =============================================
 
-// Replace this URL with your real backend endpoint when ready.
-// Example:
-// window.KENTBEATS_API_URL = 'https://api.yourdomain.com/beats';
-window.KENTBEATS_API_URL = 'api/beats.json';
+// Replace these values with your real backend providers when ready.
+window.KENTBEATS_API_CONFIG = {
+	// Primary source: your own API or local JSON
+	primary: {
+		type: 'custom',
+		url: 'api/beats.json',
+	},
+
+	// Backup sources if primary fails
+	backups: [
+		{
+			type: 'itunes',
+			term: 'afrobeats trap drill',
+			country: 'US',
+			limit: 24,
+		},
+	],
+};

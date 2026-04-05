@@ -12,16 +12,36 @@ A static music showcase website for free beat discovery and instant downloads.
 - Real file downloads (license text per selected beat)
 - API-based beat catalog loading with fallback data
 
-## Connect a real API
+## Connect real APIs
 
-The app now fetches beats from `window.KENTBEATS_API_URL` in `js/api.js`.
+The app now uses `window.KENTBEATS_API_CONFIG` in `js/api.js` with:
 
-1. Open `js/api.js`
-2. Replace the URL with your backend endpoint, for example:
+- Primary source
+- Backup sources
+
+Example:
 
 ```js
-window.KENTBEATS_API_URL = 'https://api.yourdomain.com/beats';
+window.KENTBEATS_API_CONFIG = {
+	primary: {
+		type: 'custom',
+		url: 'https://api.yourdomain.com/beats'
+	},
+	backups: [
+		{
+			type: 'itunes',
+			term: 'afrobeats trap drill',
+			country: 'US',
+			limit: 24
+		}
+	]
+};
 ```
+
+Supported source types:
+
+- `custom` (your own endpoint returning beat array)
+- `itunes` (public iTunes search API)
 
 Expected JSON response is an array of beat objects:
 
@@ -34,12 +54,14 @@ Expected JSON response is an array of beat objects:
 		"price": "FREE",
 		"emoji": "🌙",
 		"g": "g1",
-		"badge": "NEW"
+		"badge": "NEW",
+		"streamUrl": "https://cdn.yourdomain.com/audio/midnight-frequencies.mp3",
+		"downloadUrl": "https://cdn.yourdomain.com/audio/midnight-frequencies.mp3"
 	}
 ]
 ```
 
-If the API is unavailable, the app automatically falls back to local default data.
+If all APIs fail, the app automatically falls back to local default data.
 
 ## Publish on GitHub Pages (Windows)
 
